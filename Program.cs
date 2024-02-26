@@ -14,7 +14,8 @@ namespace WebAppCRUD
 
             // Add services to the container.
             builder.Services.AddRazorPages();
-            builder.Services.AddDefaultIdentity<IdentityUser>()
+            builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddDefaultTokenProviders().AddDefaultUI()
                 .AddEntityFrameworkStores<WebAppCRUDContext>();
             var app = builder.Build();
 

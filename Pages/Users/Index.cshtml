@@ -38,9 +38,16 @@
                 @Html.DisplayFor(modelItem => item.Times)
             </td>
             <td>
+                @if (User.IsInRole(WC.AdminRole))
+                {
                     <a class="btn btn-warning" asp-page="./Edit" asp-route-id="@item.ID">Изменить</a> 
                     <a class="btn btn-success" asp-page="./Details" asp-route-id="@item.ID">Подробнее</a> 
                     <a class="btn btn-danger" asp-page="./Delete" asp-route-id="@item.ID">Удалить</a>
+                }
+                else
+                {
+                    <a class="btn btn-success" asp-page="./Details" asp-route-id="@item.ID">Подробнее</a>
+                }
             </td>
         </tr>
         }

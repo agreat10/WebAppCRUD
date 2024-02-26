@@ -5,36 +5,58 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
-
-<h4>User</h4>
+<h1>Форма создания задачи</h1>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="User.Name" class="control-label"></label>
-                <input asp-for="User.Name" class="form-control" />
-                <span asp-validation-for="User.Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="User.Description" class="control-label"></label>
-                <input asp-for="User.Description" class="form-control" />
-                <span asp-validation-for="User.Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="User.Times" class="control-label"></label>
-                <input asp-for="User.Times" class="form-control" />
-                <span asp-validation-for="User.Times" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+<div class="container">
+    <div class="row">
+        <div class="col-md-10">            
+            <form method="post">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="form-group">
+                                <label asp-for="User.Name" class="control-label"></label>
+                                <input asp-for="User.Name" class="form-control" placeholder="Введите название задачи" />
+                                <span asp-validation-for="User.Name" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-group">
+                                <label asp-for="User.Description" class="control-label"></label>
+                                <textarea asp-for="User.Description" class="form-control" rows="3" placeholder="Описание задачи"></textarea>
+                                <span asp-validation-for="User.Description" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-group">
+                                <label asp-for="User.Times" class="control-label"></label>
+                                <input asp-for="User.Times" class="form-control" />
+                                <span asp-validation-for="User.Times" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Создать" class="btn btn-primary" />
+                        </div>   
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <div class="form-group">
+                                <label for="workers" class="form-label">Работники</label>
+                                <select multiple class="form-select" id="workers">
+                                    <option value="worker1">Работник 1</option>
+                                    <option value="worker2">Работник 2</option>
+                                    <option value="worker3">Работник 3</option>
+                                    <!-- Добавьте дополнительные работники по мере необходимости -->
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>       
     </div>
 </div>
-
 <div>
     <a asp-page="Index">Back to List</a>
 </div>

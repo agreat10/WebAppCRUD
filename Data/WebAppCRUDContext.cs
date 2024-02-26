@@ -16,5 +16,6 @@ namespace WebAppCRUD.Data
         }
 
         public DbSet<WebAppCRUD.Model.User> User { get; set; } = default!;
+        public DbSet<ApplicationUser> ApplicationUser { get; set; }
     }
 }
