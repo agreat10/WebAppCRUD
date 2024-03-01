@@ -1,8 +1,12 @@
 ﻿@page
+@using Microsoft.AspNetCore.Identity
 @model WebAppCRUD.Pages.Users.IndexModel
-
+@using WebAppCRUD.Model
+@inject UserManager<IdentityUser> UserManager
 @{
     ViewData["Title"] = "Все задачи";
+    var x = UserManager.GetUserName(User);
+    var xx = Model.Useres.FirstOrDefault(u => u.UserName == x);
 }
 
 <h1>Все задачи</h1>
@@ -22,11 +26,15 @@
             <th>
                 @Html.DisplayNameFor(model => model.User[0].Times)
             </th>
-            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.User[0].Сontractor)
+            </th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model.User) {
+            if (item.Сontractor == xx.FullName || User.IsInRole(WC.AdminRole))
+            {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
@@ -37,19 +45,23 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Times)
             </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Сontractor)
+                </td>
             <td>
                 @if (User.IsInRole(WC.AdminRole))
                 {
                     <a class="btn btn-warning" asp-page="./Edit" asp-route-id="@item.ID">Изменить</a> 
                     <a class="btn btn-success" asp-page="./Details" asp-route-id="@item.ID">Подробнее</a> 
-                    <a class="btn btn-danger" asp-page="./Delete" asp-route-id="@item.ID">Удалить</a>
+                    <a class="btn btn-danger" asp-page="./Delete" asp-route-id="@item.ID">@xx.FullName</a>
                 }
                 else
                 {
                     <a class="btn btn-success" asp-page="./Details" asp-route-id="@item.ID">Подробнее</a>
                 }
             </td>
-        </tr>
+                </tr>
+            }
         }
     </tbody>
 </table>

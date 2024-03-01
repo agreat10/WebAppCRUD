@@ -14,5 +14,8 @@ namespace WebAppCRUD.Model
 
         [Display(Name = "Срок вполнения")]
         public DateTime Times { get; set; }
+
+        [Display(Name = "Исполнитель")]
+        public string Сontractor { get; set; }
     }
 }

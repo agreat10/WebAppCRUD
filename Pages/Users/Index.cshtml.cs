@@ -22,9 +22,11 @@ namespace WebAppCRUD.Pages.Users
         }
 
         public IList<User> User { get;set; } = default!;
+        public List<ApplicationUser> Useres { get; set; }
 
         public async Task OnGetAsync()
         {
+            Useres = _context.ApplicationUser.ToList();
             User = await _context.User.ToListAsync();
         }
     }

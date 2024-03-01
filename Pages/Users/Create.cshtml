@@ -1,9 +1,11 @@
 ﻿@page
 @model WebAppCRUD.Pages.Users.CreateModel
-
+@using WebAppCRUD.Model
 @{
     ViewData["Title"] = "Create";
+    
 }
+
 
 <h1>Форма создания задачи</h1>
 <hr />
@@ -42,13 +44,14 @@
                     <div class="col-md-6">
                         <div class="mb-3">
                             <div class="form-group">
-                                <label for="workers" class="form-label">Работники</label>
-                                <select multiple class="form-select" id="workers">
-                                    <option value="worker1">Работник 1</option>
-                                    <option value="worker2">Работник 2</option>
-                                    <option value="worker3">Работник 3</option>
-                                    <!-- Добавьте дополнительные работники по мере необходимости -->
+                                <select asp-for="User.Сontractor" class="form-control">
+                                    <option value="">Выберите пользователя</option>
+                                    @foreach (var user in Model.Useres)
+                                    {
+                                        <option value="@user.FullName">@user.FullName</option>
+                                    }
                                 </select>
+
                             </div>
                         </div>
                     </div>

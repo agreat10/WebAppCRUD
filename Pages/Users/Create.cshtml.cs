@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using WebAppCRUD.Data;
 using WebAppCRUD.Model;
 
@@ -13,14 +14,18 @@ namespace WebAppCRUD.Pages.Users
     public class CreateModel : PageModel
     {
         private readonly WebAppCRUD.Data.WebAppCRUDContext _context;
+        public List<ApplicationUser> Useres { get; set; }
+
 
         public CreateModel(WebAppCRUD.Data.WebAppCRUDContext context)
         {
             _context = context;
+            
         }
 
         public IActionResult OnGet()
         {
+            Useres = _context.ApplicationUser.ToList();
             return Page();
         }
 
@@ -34,11 +39,14 @@ namespace WebAppCRUD.Pages.Users
             {
                 return Page();
             }
-
+            
             _context.User.Add(User);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
         }
+
+
     }
+
 }
