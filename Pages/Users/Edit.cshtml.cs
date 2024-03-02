@@ -14,6 +14,7 @@ namespace WebAppCRUD.Pages.Users
     public class EditModel : PageModel
     {
         private readonly WebAppCRUD.Data.WebAppCRUDContext _context;
+        public List<ApplicationUser> Useres { get; set; }
 
         public EditModel(WebAppCRUD.Data.WebAppCRUDContext context)
         {
@@ -36,6 +37,7 @@ namespace WebAppCRUD.Pages.Users
                 return NotFound();
             }
             User = user;
+            Useres = _context.ApplicationUser.ToList();
             return Page();
         }
 

@@ -7,12 +7,17 @@
     ViewData["Title"] = "Все задачи";
     var x = UserManager.GetUserName(User);
     var xx = Model.Useres.FirstOrDefault(u => u.UserName == x);
+    
 }
 
 <h1>Все задачи</h1>
 
 <p>
-    <a class="btn btn-primary" asp-page="Create">Создать задачу</a>
+    @if (User.IsInRole(WC.AdminRole))
+    {
+        <a class="btn btn-primary" asp-page="Create">
+            <i class="fa-solid fa-plus"></i> &nbsp; Создать задачу</a>
+    }
 </p>
 <table class="table">
     <thead>
@@ -40,10 +45,26 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Description)
+                @if (item.Description.Length > 100)
+                {
+                    var xxx = item.Description.Substring(0, 30) + " ...";
+                    @xxx;
+                }
+                else
+                {
+                    @Html.DisplayFor(modelItem => item.Description)
+                }
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Times)
+                @{
+                            var timeses = item.Times - DateTime.Now;
+                            var days = timeses.Days;
+                            var formattedTime = string.Format("{0} дн. {1:hh\\:mm}", days, timeses);
+                            @formattedTime;
+
+                }
+                        <div>@Html.DisplayFor(modelItem => item.Times)</div>
+                
             </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Сontractor)
@@ -51,9 +72,17 @@
             <td>
                 @if (User.IsInRole(WC.AdminRole))
                 {
-                    <a class="btn btn-warning" asp-page="./Edit" asp-route-id="@item.ID">Изменить</a> 
-                    <a class="btn btn-success" asp-page="./Details" asp-route-id="@item.ID">Подробнее</a> 
-                    <a class="btn btn-danger" asp-page="./Delete" asp-route-id="@item.ID">@xx.FullName</a>
+                            <a class="btn btn-success" asp-page="./Details" asp-route-id="@item.ID">
+                                <i class="fa-solid fa-circle-info"></i> &nbsp; Подробнее
+                            </a>
+                    
+                            <a class="btn btn-warning" asp-page="./Edit" asp-route-id="@item.ID">
+                                <i class="fa-regular fa-pen-to-square"></i>
+                            </a>
+                            
+                            <a class="btn btn-danger" asp-page="./Delete" asp-route-id="@item.ID">
+                                <i class="fa-regular fa-trash-can"></i> 
+                            </a>
                 }
                 else
                 {

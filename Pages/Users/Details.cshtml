@@ -29,9 +29,19 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.User.Times)
         </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.User.Сontractor)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.User.Сontractor)
+        </dd>
     </dl>
 </div>
 <div>
-    <a class="btn btn-warning" asp-page="./Edit" asp-route-id="@Model.User.ID">Редактировать</a> |
+    @if (User.IsInRole(WC.AdminRole))
+    {
+        <a class="btn btn-warning" asp-page="./Edit" asp-route-id="@Model.User.ID">Редактировать</a>
+    }    
     <a class="btn btn-success" asp-page="./Index">Вернуться к задачам</a>
 </div>
