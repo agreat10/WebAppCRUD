@@ -5,8 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 using WebAppCRUD.Data;
 using WebAppCRUD.Model;
+using System.Web;
+
 
 namespace WebAppCRUD.Pages.Users
 {
@@ -39,5 +42,8 @@ namespace WebAppCRUD.Pages.Users
             }
             return Page();
         }
+
+        
+
     }
 }

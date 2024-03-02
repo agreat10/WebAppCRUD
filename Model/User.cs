@@ -17,5 +17,7 @@ namespace WebAppCRUD.Model
 
         [Display(Name = "Исполнитель")]
         public string Сontractor { get; set; }
+
+        
     }
 }

@@ -72,10 +72,14 @@
                     @Html.DisplayFor(modelItem => item.Description)
                 }
             </td>
-            @{
-                    var t = item.Times - DateTime.Now;
-                    var h1 = t.Hours;
-                    var h = GetBackgroundColor(h1);
+                    @{
+                        var t = item.Times - DateTime.Now;
+                        var d = t.Days;
+                        var h1 = t.Hours;
+                        string h;
+                        if (d > 0) h = "#7CFA7C";
+                        else h = GetBackgroundColor(h1);                   
+                     
             }
                     <td style="background-color: @h">
                 @{
