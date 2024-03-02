@@ -6,9 +6,26 @@
 @{
     ViewData["Title"] = "Все задачи";
     var x = UserManager.GetUserName(User);
-    var xx = Model.Useres.FirstOrDefault(u => u.UserName == x);
-    
+    var xx = Model.Useres.FirstOrDefault(u => u.UserName == x);    
 }
+@functions {
+    public string GetBackgroundColor(int times)
+    {
+        if (times < 1)
+        {
+            return "#FF7958"; // Красный цвет, если осталось меньше 5 времени
+        }
+        else if (times < 4)
+        {
+            return "#FFFF5D"; // Желтый цвет, если осталось меньше 10 времени
+        }
+        else
+        {
+            return "#7CFA7C"; // Зеленый цвет, если осталось больше или равно 10 времени
+        }
+    }
+}
+
 
 <h1>Все задачи</h1>
 
@@ -19,7 +36,7 @@
             <i class="fa-solid fa-plus"></i> &nbsp; Создать задачу</a>
     }
 </p>
-<table class="table">
+<table class="table table-bordered">
     <thead>
         <tr>
             <th>
@@ -55,15 +72,21 @@
                     @Html.DisplayFor(modelItem => item.Description)
                 }
             </td>
-            <td>
+            @{
+                    var t = item.Times - DateTime.Now;
+                    var h1 = t.Hours;
+                    var h = GetBackgroundColor(h1);
+            }
+                    <td style="background-color: @h">
                 @{
-                            var timeses = item.Times - DateTime.Now;
-                            var days = timeses.Days;
-                            var formattedTime = string.Format("{0} дн. {1:hh\\:mm}", days, timeses);
-                            @formattedTime;
+                    var timeses = item.Times - DateTime.Now;
+                    var hours = timeses.Hours;
+                    var days = timeses.Days;
+                    var formattedTime = string.Format("{0} дн. {1:hh\\:mm}", days, timeses);
+                    @formattedTime;
 
                 }
-                        <div>@Html.DisplayFor(modelItem => item.Times)</div>
+                    <div>@Html.DisplayFor(modelItem => item.Times)</div>
                 
             </td>
                 <td>
@@ -72,17 +95,17 @@
             <td>
                 @if (User.IsInRole(WC.AdminRole))
                 {
-                            <a class="btn btn-success" asp-page="./Details" asp-route-id="@item.ID">
-                                <i class="fa-solid fa-circle-info"></i> &nbsp; Подробнее
-                            </a>
+                    <a class="btn btn-success" asp-page="./Details" asp-route-id="@item.ID">
+                        <i class="fa-solid fa-circle-info"></i> &nbsp; Подробнее
+                    </a>
                     
-                            <a class="btn btn-warning" asp-page="./Edit" asp-route-id="@item.ID">
-                                <i class="fa-regular fa-pen-to-square"></i>
-                            </a>
+                    <a class="btn btn-warning" asp-page="./Edit" asp-route-id="@item.ID">
+                        <i class="fa-regular fa-pen-to-square"></i>
+                    </a>
                             
-                            <a class="btn btn-danger" asp-page="./Delete" asp-route-id="@item.ID">
-                                <i class="fa-regular fa-trash-can"></i> 
-                            </a>
+                    <a class="btn btn-danger" asp-page="./Delete" asp-route-id="@item.ID">
+                        <i class="fa-regular fa-trash-can"></i> 
+                    </a>
                 }
                 else
                 {
