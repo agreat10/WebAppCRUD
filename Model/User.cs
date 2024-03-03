@@ -18,6 +18,7 @@ namespace WebAppCRUD.Model
         [Display(Name = "Исполнитель")]
         public string Сontractor { get; set; }
 
-        
+        [Display(Name = "Состояние")]
+        public string IsWork { get; set; }
     }
 }

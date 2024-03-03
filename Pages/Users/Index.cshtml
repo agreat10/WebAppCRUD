@@ -9,20 +9,21 @@
     var xx = Model.Useres.FirstOrDefault(u => u.UserName == x);    
 }
 @functions {
-    public string GetBackgroundColor(int times)
-    {
-        if (times < 1)
+    public string GetBackgroundColor(int hour, int min)
+    {        
+        if ((hour < 1 && hour >= 0) && (min > 0))
         {
-            return "#FF7958"; // Красный цвет, если осталось меньше 5 времени
+            return "#E5959D"; // Розовый цвет, если осталось меньше 5 времени
         }
-        else if (times < 4)
+        else if (hour < 4 && hour >= 1)
         {
             return "#FFFF5D"; // Желтый цвет, если осталось меньше 10 времени
         }
-        else
+        else if(hour >= 4 )
         {
             return "#7CFA7C"; // Зеленый цвет, если осталось больше или равно 10 времени
         }
+        else return "#D81224";
     }
 }
 
@@ -51,6 +52,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.User[0].Сontractor)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User[0].IsWork)
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -76,10 +80,11 @@
                         var t = item.Times - DateTime.Now;
                         var d = t.Days;
                         var h1 = t.Hours;
+                        var m = t.Minutes;
                         string h;
                         if (d > 0) h = "#7CFA7C";
-                        else h = GetBackgroundColor(h1);                   
-                     
+                        else h = GetBackgroundColor(h1,m);
+                        if (item.IsWork == "true") h = "#FFFFFF";
             }
                     <td style="background-color: @h">
                 @{
@@ -96,6 +101,20 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Сontractor)
                 </td>
+                    @{
+                        if (item.IsWork == "true")
+                        {
+                            <td>
+                                @{var temp = "Выполнено"; @temp;}
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                @{var temp = "Не выполнено";@temp;}
+                            </td>
+                        }
+                }               
             <td>
                 @if (User.IsInRole(WC.AdminRole))
                 {

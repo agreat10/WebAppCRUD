@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebAppCRUD.Data;
 
@@ -11,9 +12,11 @@ using WebAppCRUD.Data;
 namespace WebAppCRUD.Migrations
 {
     [DbContext(typeof(WebAppCRUDContext))]
-    partial class WebAppCRUDContextModelSnapshot : ModelSnapshot
+    [Migration("20240302205408_addBool")]
+    partial class addBool
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -241,9 +244,8 @@ namespace WebAppCRUD.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("IsWork")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<bool>("IsWork")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
